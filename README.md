@@ -1,10 +1,10 @@
-# sqs-bench
+# sqs-bulk-loader
 A Golang tool that sends bulk messages in parallel to AWS SQS
 
 ## Usage
 
 ```
-sqs-bench [options...] <sqs-url>
+sqs-bulk-loader [options...] <sqs-url>
 
 Options:
 -m string            (Required) AWS SQS message payload to send"
@@ -27,19 +27,19 @@ To build, simply run `make` like below
 ```
 make
 
-golint $HOME/dev/github/sqs-bench
-GOOS=linux GOARCH=amd64 GO111MODULE=on go build -ldflags "-X main.buildVersion=v0.0.1" -o $HOME/dev/github/sqs-bench/dist/sqs-bench_linux $HOME/dev/github/sqs-bench/src
-GOOS=darwin GOARCH=amd64 GO111MODULE=on go build -ldflags "-X main.buildVersion=v0.0.1" -o $HOME/dev/github/sqs-bench/dist/sqs-bench_darwin $HOME/dev/github/sqs-bench/src
+golint $HOME/dev/github/sqs-bulk-loader
+GOOS=linux GOARCH=amd64 GO111MODULE=on go build -ldflags "-X main.buildVersion=v0.0.1" -o $HOME/dev/github/sqs-bulk-loader/dist/sqs-bulk-loader_linux $HOME/dev/github/sqs-bulk-loader/src
+GOOS=darwin GOARCH=amd64 GO111MODULE=on go build -ldflags "-X main.buildVersion=v0.0.1" -o $HOME/dev/github/sqs-bulk-loader/dist/sqs-bulk-loader_darwin $HOME/dev/github/sqs-bulk-loader/src
 ```
 
-Suppose you are using macOS, run the `sqs-bench_darwin` (while `sqs-bench_linux` if you are using Linux) like below
+Suppose you are using macOS, run the `sqs-bulk-loader_darwin` (while `sqs-bulk-loader_linux` if you are using Linux) like below
 
 ```bash
 connections=10
 numcalls=10
 retry=1
 
-./dist/sqs-bench_darwin \
+./dist/sqs-bulk-loader_darwin \
   -c ${connections} \
   -n ${numcalls} \
   -r ${retry} \

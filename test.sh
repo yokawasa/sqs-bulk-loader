@@ -5,7 +5,7 @@ connections=10
 numcalls=10
 retry=1
 
-./dist/sqs-bench_darwin \
+./dist/sqs-bulk-loader_darwin \
   -c ${connections} \
   -n ${numcalls} \
   -r ${retry} \
