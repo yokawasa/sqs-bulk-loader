@@ -83,7 +83,7 @@ func (c *SQSSender) Run() {
 	var wg sync.WaitGroup
 	for i := 1; i <= c.Connections; i++ {
 		wg.Add(1)
-		go c.runWorker(i, &wg, &successCount, &errorCount)
+		go c.startWorker(i, &wg, &successCount, &errorCount)
 	}
 	wg.Wait()
 
@@ -100,7 +100,7 @@ func (c *SQSSender) Run() {
 	fmt.Printf("Average (ms): %v\n", average_ms)
 }
 
-func (c *SQSSender) runWorker(id int, wg *sync.WaitGroup, successCount *uint32, errorCount *uint32) {
+func (c *SQSSender) startWorker(id int, wg *sync.WaitGroup, successCount *uint32, errorCount *uint32) {
 	defer wg.Done()
 
 	queue := getSqsSession()
