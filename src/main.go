@@ -24,7 +24,7 @@ func usage() {
 var usageText = `sqs-bench [options...] <sqs-url>
 
 Options:
--m string            (Required) AWS SQS message payload to send "
+-m string            (Required) Amazon SQS message payload to send "
 -c connections       Number of parallel simultaneous SQS session
                      By default 1; Must be more than 0
 -n num-calls         Run for exactly this number of calls by each SQS session
