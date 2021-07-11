@@ -1,4 +1,7 @@
 # sqs-bulk-loader
+
+[![Upload Release Asset](https://github.com/yokawasa/sqs-bulk-loader/actions/workflows/release.yml/badge.svg)](https://github.com/yokawasa/sqs-bulk-loader/actions/workflows/release.yml)
+
 A Golang tool that sends bulk messages in parallel to Amazon SQS
 
 ## Usage
