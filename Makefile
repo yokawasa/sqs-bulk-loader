@@ -12,6 +12,7 @@ sqs-bulk-loader:
 	golint ${CUR}
 	GOOS=linux GOARCH=amd64 GO111MODULE=on go build -ldflags "-X main.buildVersion=${VERSION}" -o ${CUR}/dist/sqs-bulk-loader_linux ${CUR}/src
 	GOOS=darwin GOARCH=amd64 GO111MODULE=on go build -ldflags "-X main.buildVersion=${VERSION}" -o ${CUR}/dist/sqs-bulk-loader_darwin ${CUR}/src
+	GOOS=windows GOARCH=amd64 GO111MODULE=on go build -ldflags "-X main.buildVersion=${VERSION}" -o ${CUR}/dist/sqs-bulk-loader_windows ${CUR}/src
 
 all: $(TARGETS)
 
