@@ -1,0 +1,24 @@
+#!/bin/sh
+DEFAULT_VERSION=$(curl -L -s https://raw.githubusercontent.com/yokawasa/sqs-bulk-loader/main/VERSION)
+COMMAND_NAME="sqs-bulk-loader"
+OS="$(uname)"
+ARCH="amd64"
+
+if [ "${OS}" = "Darwin" ] ; then
+  OSTYPE="darwin"
+else
+  OSTYPE="linux"
+fi
+VERSION="$1"
+if [ -z "${VERSION}" ]; then
+  VERSION=${DEFAULT_VERSION}
+fi
+NAME="sqs-bulk-loader_${OSTYPE}_${ARCH}"
+
+echo "Downloading ${NAME} ..."
+curl -L -s https://github.com/yokawasa/sqs-bulk-loader/releases/download/${VERSION}/${NAME}.zip -o "${COMMAND_NAME}.zip"
+unzip ${COMMAND_NAME}.zip
+mv ${NAME} ${COMMAND_NAME}
+ls ${COMMAND_NAME} && chmod +x ${COMMAND_NAME}
+echo "Downloaded into ${COMMAND_NAME}"
+echo "Please add ${COMMAND_NAME} to your path; e.g copy paste in your shell and/or ~/.profile"
