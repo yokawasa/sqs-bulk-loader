@@ -22,7 +22,7 @@ mv ${NAME} ${COMMAND_NAME}
 ls ${COMMAND_NAME} && chmod +x ${COMMAND_NAME}
 if [ -f ${COMMAND_NAME}.zip ]
 then
-rm ${COMMAND_NAME}.zip
+  rm ${COMMAND_NAME}.zip
 fi
 echo "Downloaded into ${COMMAND_NAME}"
 echo "Please add ${COMMAND_NAME} to your path; e.g copy paste in your shell and/or ~/.profile"
