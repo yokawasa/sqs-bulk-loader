@@ -33,6 +33,8 @@ Options:
                      By default "1"
 -r retry-num         Number fo Retry in each message send
                      By default 1; Must be more than 0
+-endpoint-url string The URL to send the API request to
+                     By default "", which mean the AWS SDK automatically determines the URL
 -version             Prints out build version information
 -verbose             Verbose option
 -h                   help message
@@ -44,6 +46,7 @@ type SQSSender struct {
 	Connections    int
 	NumCalls       int
 	MessageGroupId string
+	EndpointUrl    string
 	RetryNum       int
 	Verbose        bool
 }
@@ -103,7 +106,7 @@ func (c *SQSSender) Run() {
 func (c *SQSSender) startWorker(id int, wg *sync.WaitGroup, successCount *uint32, errorCount *uint32) {
 	defer wg.Done()
 
-	queue := getSqsSession()
+	queue := getSqsSession(c.EndpointUrl)
 	randomString := randomStr(10)
 	for i := 1; i <= c.NumCalls; i++ {
 		deduplicationId := fmt.Sprintf("%s%d", randomString, i)
@@ -132,13 +135,22 @@ func (c *SQSSender) startWorker(id int, wg *sync.WaitGroup, successCount *uint32
 	}
 }
 
-func getSqsSession() *sqs.SQS {
-	sess := session.Must(
-		session.NewSessionWithOptions(
-			session.Options{
-				SharedConfigState: session.SharedConfigEnable,
-			}))
-
+func getSqsSession(endpointUrl string) *sqs.SQS {
+	var sess *session.Session
+	if endpointUrl != "" {
+		sess = session.Must(
+			session.NewSessionWithOptions(
+				session.Options{
+					Config:            aws.Config{Endpoint: aws.String(endpointUrl)},
+					SharedConfigState: session.SharedConfigEnable,
+				}))
+	} else {
+		sess = session.Must(
+			session.NewSessionWithOptions(
+				session.Options{
+					SharedConfigState: session.SharedConfigEnable,
+				}))
+	}
 	return sqs.New(sess)
 }
 
@@ -151,6 +163,7 @@ func main() {
 		numCalls       int
 		messageGroupId string
 		retryNum       int
+		endpointUrl    string
 		version        bool
 		verbose        bool
 	)
@@ -160,6 +173,7 @@ func main() {
 	flag.IntVar(&numCalls, "n", 1, "Run for exactly this number of calls by each SQS session")
 	flag.StringVar(&messageGroupId, "g", "1", "SQS message group ID")
 	flag.IntVar(&retryNum, "r", 1, "Number fo Retry in each message send")
+	flag.StringVar(&endpointUrl, "endpoint-url", "", "The URL to send the API request to")
 	flag.BoolVar(&version, "version", false, "Build version")
 	flag.BoolVar(&verbose, "verbose", false, "Verbose option")
 	flag.Usage = usage
@@ -183,6 +197,7 @@ func main() {
 		Connections:    connections,
 		NumCalls:       numCalls,
 		MessageGroupId: messageGroupId,
+		EndpointUrl:    endpointUrl,
 		RetryNum:       retryNum,
 		Verbose:        verbose,
 	}
