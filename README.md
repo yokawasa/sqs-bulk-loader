@@ -104,6 +104,10 @@ Finally clean built commands
 make clean
 ```
 
+## Relevant project
+
+- [kinesis-bulk-loader](https://github.com/yokawasa/kinesis-bulk-loader): A Golang tool that put bulk messages in parallel to AWS Kinesis Data Stream.
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/yokawasa/sqs-bulk-loader.
