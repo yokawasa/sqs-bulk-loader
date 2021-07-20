@@ -1,4 +1,4 @@
-module github.com/yokawasa/sqs-bench
+module github.com/yokawasa/sqs-bulk-loader
 
 go 1.16
 
