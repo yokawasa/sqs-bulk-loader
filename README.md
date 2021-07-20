@@ -1,6 +1,6 @@
 # sqs-bulk-loader
 
-[![Upload Release Asset](https://github.com/yokawasa/sqs-bulk-loader/actions/workflows/release.yml/badge.svg)](https://github.com/yokawasa/sqs-bulk-loader/actions/workflows/release.yml)
+[![Upload Release Asset](https://github.com/yokawasa/sqs-bulk-loader/actions/workflows/release.yml/badge.svg)](https://github.com/yokawasa/sqs-bulk-loader/actions/workflows/release.yml) [![Go Report Card](https://goreportcard.com/badge/github.com/yokawasa/sqs-bulk-loader)](https://goreportcard.com/report/github.com/yokawasa/sqs-bulk-loader)
 
 A Golang tool that sends bulk messages in parallel to Amazon SQS
 
